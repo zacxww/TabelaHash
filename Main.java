@@ -31,7 +31,7 @@ public class Main {
 
         //tabela2.display(); // PRINT DA TABELA SE NECESSARIO
 
-        System.out.println("TABELA 2:");
+        System.out.println("\n\n\nTABELA 2:");
         System.out.println("----------------------------//----------------------------");
         System.out.println("Tempo de Insercao: " + totalInsercao2 + "ns");
         System.out.println("----------------------------//----------------------------");
