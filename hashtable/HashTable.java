@@ -35,9 +35,9 @@ public abstract class HashTable<K, V> {
         }
         tamanho++;
         head = tabela[index];
-        HashNode<K, V> newNode = new HashNode<>(key, value);
-        newNode.next = head;
-        tabela[index] = newNode;
+        HashNode<K, V> novoNode = new HashNode<>(key, value);
+        novoNode.next = head;
+        tabela[index] = novoNode;
     }
 
     public V get(K key) {
@@ -100,10 +100,6 @@ public abstract class HashTable<K, V> {
                 System.out.print("\n");
             }
         }
-    }
-
-    public int size() {
-        return tamanho;
     }
 
     public boolean isEmpty() {
