@@ -3,25 +3,24 @@ package hashtable;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.sql.SQLOutput;
 
 public abstract class HashTable<K, V> {
 
-    protected HashNode<K, V>[] table;
-    protected int capacity;
-    protected int size;
+    protected HashNode<K, V>[] tabela;
+    protected int capacidade;
+    protected int tamanho;
 
     public HashTable(int capacity) {
-        this.capacity = capacity;
-        this.table = new HashNode[capacity];
-        this.size = 0;
+        this.capacidade = capacity;
+        this.tabela = new HashNode[capacity];
+        this.tamanho = 0;
     }
 
     protected abstract int hash(K key);
 
     public void put(K key, V value) {
         int index = hash(key);
-        HashNode<K, V> head = table[index];
+        HashNode<K, V> head = tabela[index];
         while (head != null) {
             if (head.key.equals(key)) {
                 head.value = value;
@@ -29,16 +28,16 @@ public abstract class HashTable<K, V> {
             }
             head = head.next;
         }
-        size++;
-        head = table[index];
+        tamanho++;
+        head = tabela[index];
         HashNode<K, V> newNode = new HashNode<>(key, value);
         newNode.next = head;
-        table[index] = newNode;
+        tabela[index] = newNode;
     }
 
     public V get(K key) {
         int index = hash(key);
-        HashNode<K, V> head = table[index];
+        HashNode<K, V> head = tabela[index];
         while (head != null) {
             if (head.key.equals(key)) {
                 return head.value;
@@ -48,21 +47,22 @@ public abstract class HashTable<K, V> {
         return null;
     }
 
-    public void loadFromCSV(String filePath) {
+    public void lerTXT(String filePath) {
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
-            String line = br.readLine();
+            br.readLine();
+            String line;
             while ((line = br.readLine()) != null) {
                 K key = (K) line.trim();
                 put(key, null);
             }
         } catch (IOException e) {
-            System.err.println("Erro ao ler o arquivo CSV: " + e.getMessage());
+            e.getStackTrace();
         }
     }
 
     public V remove(K key) {
         int index = hash(key);
-        HashNode<K, V> head = table[index];
+        HashNode<K, V> head = tabela[index];
         HashNode<K, V> prev = null;
         while (head != null) {
             if (head.key.equals(key)) {
@@ -72,27 +72,27 @@ public abstract class HashTable<K, V> {
             head = head.next;
         }
         if (head == null) return null;
-        size--;
+        tamanho--;
         if (prev != null) {
             prev.next = head.next;
         } else {
-            table[index] = head.next;
+            tabela[index] = head.next;
         }
         return head.value;
     }
 
     public int size() {
-        return size;
+        return tamanho;
     }
 
     public boolean isEmpty() {
-        return size == 0;
+        return tamanho == 0;
     }
 
     public void display() {
-        for (int i = 0; i < capacity; i++) {
-            System.out.print("Índice " + i + ": ");
-            HashNode<K, V> head = table[i];
+        for (int i = 0; i < capacidade; i++) {
+            System.out.print(i + ": ");
+            HashNode<K, V> head = tabela[i];
             while (head != null) {
                 System.out.print("[" + head.key + "] - ");
                 head = head.next;

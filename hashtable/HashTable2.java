@@ -3,8 +3,8 @@ package hashtable;
 public class HashTable2<K,V> extends HashTable<K,V> {
 
 
-    public HashTable2(int capacity) {
-        super(capacity);
+    public HashTable2(int capacidade) {
+        super(capacidade);
     }
 
     @Override
@@ -13,7 +13,7 @@ public class HashTable2<K,V> extends HashTable<K,V> {
         int hashValue = 0;
         int prime = 37;
         for (int i = 0; i < keyString.length(); i++) {
-            hashValue = (prime * hashValue + keyString.charAt(i)) % capacity;
+            hashValue = (prime * hashValue + keyString.charAt(i)) % capacidade;
         }
         return Math.abs(hashValue);
     }

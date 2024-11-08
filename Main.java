@@ -4,13 +4,11 @@ public class Main {
 
     public static void main(String[] args) {
 
-        HashTable<String, String> table = new HashTable1<>(50);
+        HashTable<String, String> tabela = new HashTable1<>(100);
 
-        String filePath = "names_5000.csv";
-        table.loadFromCSV(filePath);
+        String caminho = "female_names.txt";
+        tabela.lerTXT(caminho);
 
-        System.out.println("Conteúdo da HashTable após carregar o CSV:");
-        table.display();
-
+        tabela.display();
     }
 }
